@@ -36,6 +36,9 @@
             android:inputType="textPassword"
             android:hint="Password"/>
 
+
+
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="fill_parent"
@@ -44,6 +47,15 @@
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:text="Login"/>
+
+        <Button
+            android:id="@+id/btn_otp_signIn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Login using OTP"/>
 
         <TextView android:id="@+id/link_signup"
             android:layout_width="fill_parent"

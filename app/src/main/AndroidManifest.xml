@@ -21,7 +21,8 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".DashboardActivity" />
-        <activity android:name=".GmailActivity">
+        <activity android:name=".GmailActivity"/>
+        <activity android:name=".PhoneNumberActivity"  android:theme="@style/AppTheme.Dark">
         </activity>
     </application>
 

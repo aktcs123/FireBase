@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button _loginButton;
 
+    Button _use_otp;
+
     TextView _signupLink;
 
     private FirebaseAuth mAuth;
@@ -75,6 +77,18 @@ public class MainActivity extends AppCompatActivity {
                 // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
+                finish();
+                //overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
+        _use_otp.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // Start the Signup activity
+                Intent intent = new Intent(getApplicationContext(), PhoneNumberActivity.class);
+                startActivity(intent);
                 finish();
                 //overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
@@ -214,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         _loginButton = findViewById(R.id.btn_login);
         _signupLink = findViewById(R.id.link_signup);
         signInButton = findViewById(R.id.sign_in_button);
+        _use_otp = findViewById(R.id.btn_otp_signIn);
 
     }
 
