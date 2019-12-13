@@ -223,10 +223,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeUI() {
-        _emailText = findViewById(R.id.input_email);
-        _passwordText = findViewById(R.id.input_password);
-        _loginButton = findViewById(R.id.btn_login);
-        _signupLink = findViewById(R.id.link_signup);
+        //_emailText = findViewById(R.id.input_email);
+        //_passwordText = findViewById(R.id.input_password);
+        //_loginButton = findViewById(R.id.btn_login);
+        //_signupLink = findViewById(R.id.link_signup);
         signInButton = findViewById(R.id.sign_in_button);
         _use_otp = findViewById(R.id.btn_otp_signIn);
 
