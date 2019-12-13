@@ -67,6 +67,7 @@ public class PhoneNumberActivity extends AppCompatActivity implements View.OnCli
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
                 Toast.makeText(PhoneNumberActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
+                mVerificationId = verificationId;
                 mResendToken = token; //Add this line to save the resend token
             }
         };

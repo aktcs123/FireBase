@@ -19,30 +19,33 @@
             android:background="@drawable/ic_person_black_24dp"
             android:layout_gravity="center"
             android:id="@+id/photo"/>
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Name: NAME HERE"
-            android:textSize="18sp"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"/>
+            android:textColor="#FAF6F6"
+            android:textSize="18sp" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/email"
-            android:text="Email: EMAIL HERE"
-            android:textSize="18sp"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"/>
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Email: EMAIL HERE"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="ID: ID HERE"
-            android:textSize="18sp"
-            android:textColor="@color/primary"
-            android:layout_gravity="center"/>
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
