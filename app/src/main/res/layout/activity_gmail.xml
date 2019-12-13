@@ -25,7 +25,7 @@
             android:id="@+id/name"
             android:text="Name: NAME HERE"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/primary"
             android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:id="@+id/email"
             android:text="Email: EMAIL HERE"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/primary"
             android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:id="@+id/id"
             android:text="ID: ID HERE"
             android:textSize="18sp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/primary"
             android:layout_gravity="center"/>
 
     </LinearLayout>
@@ -55,7 +55,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/primary"
         android:textColor="#fff"/>
 
 </RelativeLayout>
