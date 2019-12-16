@@ -14,8 +14,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +36,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
-    private static final int REQUEST_SIGNUP = 0;
+    private static final int RC_SIGN_IN = 9001;
 
     EditText _emailText;
     EditText _passwordText;
@@ -45,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
     TextView _signupLink;
 
     private FirebaseAuth mAuth;
-
-    int RC_SIGN_IN = 0;
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
 
@@ -61,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Login Logic
-        _loginButton.setOnClickListener(new View.OnClickListener() {
+        /*_loginButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 loginUserAccount();
             }
-        });
+        });*/
 
         // SignUp Logic
-        _signupLink.setOnClickListener(new View.OnClickListener() {
+       /* _signupLink.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 //overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
-        });
+        });*/
 
         _use_otp.setOnClickListener(new View.OnClickListener() {
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -121,23 +123,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
 
-                // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-                if (requestCode == RC_SIGN_IN) {
-                    // The Task returned from this call is always completed, no need to attach
-                    // a listener.
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                    handleSignInResult(task);
-                }
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w(TAG, "Google sign in failed", e);
+                // [START_EXCLUDE]
+                //updateUI(null);
+                // [END_EXCLUDE]
             }
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        // [START_EXCLUDE silent]
+        // [END_EXCLUDE]
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startActivity(new Intent(MainActivity.this, GmailActivity.class));
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(MainActivity.this, "Google Login Failed", Toast.LENGTH_LONG).show();
+                        }
+
+                        // [START_EXCLUDE]
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
+ /*   private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
@@ -148,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
             Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
             @Override
     public void onBackPressed() {
@@ -167,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         _loginButton.setEnabled(true);
     }
 
-    public boolean validate() {
+    /*public boolean validate() {
         boolean valid = true;
 
         String email = _emailText.getText().toString();
@@ -189,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
         return valid;
     }
-
+*/
     private void loginUserAccount() {
 
 
