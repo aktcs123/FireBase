@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:ems="10"
+        android:text="+918122319188"
         android:inputType="phone"
         android:hint="Enter phone number" />
+
 
     <Button
         android:id="@+id/bt_send_otp"

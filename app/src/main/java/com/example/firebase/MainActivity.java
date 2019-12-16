@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Google Login Failed", Toast.LENGTH_LONG).show();
+                            //Snackbar.make(MainActivity.this, "Google Login Failed", Toast.LENGTH_LONG)
                         }
 
                         // [START_EXCLUDE]

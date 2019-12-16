@@ -2,6 +2,7 @@ package com.example.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,9 +20,14 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class PhoneNumberActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,6 +39,8 @@ public class PhoneNumberActivity extends AppCompatActivity implements View.OnCli
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     String mVerificationId;
     FirebaseDatabase database;
+    private static final String TAG = "PhoneNumberActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +117,8 @@ public class PhoneNumberActivity extends AppCompatActivity implements View.OnCli
                             if (task.isSuccessful()) {
                                 FirebaseUser user = task.getResult().getUser();
                                 Toast.makeText(PhoneNumberActivity.this, "Verification Success", Toast.LENGTH_SHORT).show();
-                                DatabaseReference myRef = database.getReference("users");
-                                myRef.setValue(user);
-
+                                DatabaseReference myRef = database.getReference("messages");
+                                myRef.setValue("Hello World");
 
                             } else {
                                 if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
